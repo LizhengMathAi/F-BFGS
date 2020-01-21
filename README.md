@@ -3,6 +3,39 @@
 ## Introduction
 Codes for paper "A Dynamic Subspace Based BFGS Method for Large Scale Optimization Problem".
 
+The Fast-BFGS performance better than BFGS and L-BFGS in the number of function and gradient evaluations (nfg) with the termination criterion $\| \nabla f_k \|_2 < 10^{-5}$ and $m=8$.
+
+| name     | n    | GD    | BFGS  | L-BFGS | Fast-BFGS(version A) | Fast-BFGS(version B) |
+| ---      | ---  | ---   | ---   | ---    | ---   | ---   |
+| ARWHEAD  | 1024 | >1000 | 39    | 26     | 21    | 16    |
+| BDQRTIC  | 1024 | >1000 | --    | --     | 491   | 317   |
+| BDEXP    | 1024 | >1000 | 19    | 19     | 9     | 9     |
+| COSINE   | 1024 | >1000 | --    | --     | 44    | 16    |
+| DIXMAANE | 1500 | >1000 | 195   | 244    | 586   | 326   |
+| DIXMAANF | 1500 | >1000 | 336   | 216    | 423   | 265   |
+| DIXMAANG | 1500 | >1000 | 954   | 384    | 460   | 211   |
+| DQRTIC   | 1000 | --    | --    | --     | 35    | 31    |
+| EDENSCH  | 1000 | 59    | 86    | 52     | 42    | 23    |
+| ENGVAL1  | 1000 | 66    | 154   | 119    | 39    | 24    |
+| EG2      | 1000 | 7     | 6     | 6      | 8     | 8     |
+| EXTROSNB | 1000 | 63    | 309   | 333    | 76    | 41    |
+| FLETCHER | 100  | >1000 | --    | --     | >1000 | 734   |
+| FREUROTH | 1000 | --    | --    | --     | 51    | 45    |
+| GENROSE  | 1000 | >1000 | >1000 | 39     | 48    | --    |
+| HIMMELBG | 1000 | >1000 | 3     | 3      | 3     | 3     |
+| HIMMELH  | 1000 | 20    | 9     | 9      | 19    | 16    |
+| LIARWHD  | 1000 | >1000 | --    | 28     | 40    | 30    |
+| NONDIA   | 1000 | >1000 | --    | 55     | 97    | 76    |
+| NONDQUAR | 1000 | >1000 | 270   | 320    | 344   | 230   |
+| NONSCOMP | 1000 | 86    | 286   | 238    | 101   | 45    |
+| POWELLSG | 1000 | >1000 | 459   | 49     | 69    | 63    |
+| SCHMVETT | 1000 | 181   | 26    | 24     | 45    | 25    |
+| SINQUAD  | 1000 | >1000 | 140   | 143    | --    | --    |
+| SROSENBR | 1000 | >1000 | --    | 39     | 48    | --    |
+| TOINTGSS | 1000 | 6     | 9     | 9      | 8     | 7     |
+| TQUARTIC | 1000 | >1000 | 16    | 17     | 28    | 24    |
+| WOODS    | 1000 | >1000 | --    | 92     | --    | 48    |
+
 ## Algorithms
 See the function `unit_test` in `f_bfgs.py` for addition examples.
 
