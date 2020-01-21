@@ -1284,5 +1284,5 @@ def memory_experiments():
     display(cls=CUTE.WOODS, n=1000, **kwargs)
 
 
-unit_test()
-memory_experiments()
+# unit_test()
+# memory_experiments()

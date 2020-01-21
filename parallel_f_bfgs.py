@@ -551,69 +551,69 @@ def fast_bfgs(func, grad, x0, m, tol=1e-5, max_iters=1000):
     return FastBFGS(func, grad, m=m, x0=x0).solve(tol=tol, max_iters=max_iters)
 
 
-#  --------------------------- test ---------------------------
-# Styblinski & Tang's function(1990)
-class Styblinski:
-    @classmethod
-    def function(cls, x):
-        if isinstance(x, np.ndarray):
-            return np.mean(x ** 4 - 16 * x ** 2 + 5 * x)
-        else:
-            return tf.reduce_mean(x ** 4 - 16 * x ** 2 + 5 * x)
+# #  --------------------------- test ---------------------------
+# # Styblinski & Tang's function(1990)
+# class Styblinski:
+#     @classmethod
+#     def function(cls, x):
+#         if isinstance(x, np.ndarray):
+#             return np.mean(x ** 4 - 16 * x ** 2 + 5 * x)
+#         else:
+#             return tf.reduce_mean(x ** 4 - 16 * x ** 2 + 5 * x)
 
-    @classmethod
-    def gradients(cls, x):
-        if isinstance(x, np.ndarray):
-            n = x.__len__()
-        else:
-            n = x.get_shape().as_list()[0]
-        return (4 * x ** 3 - 32 * x + 5) / n
-
-
-# m, n = 32, 2 ** 10
-# x0 = -2.5 * np.ones(shape=(n, )) + np.linspace(0, 1, n) - 0.5
-#
-# # ------------------------------ test parallel mode ------------------------------
-# xk, logs = BFGS(Styblinski.function, x0=x0).solve()
-# xk, logs = LBFGS(Styblinski.function, Styblinski.gradients, m=m, x0=x0).solve(tol=1e-8)
-# xk, logs = serial.fast_bfgs(Styblinski.function, Styblinski.gradients, x0, m, tol=1e-8)
-# print(logs[:, -2:])
-# xk, logs = fast_bfgs(Styblinski.function, Styblinski.gradients, x0, m, tol=1e-8)
-# print(logs)
-# # ------------------------------ test time spy ------------------------------
-# LBFGS(Styblinski.function, Styblinski.gradients, x0=x0, m=m).time_spy()
-# FastBFGS(Styblinski.function, Styblinski.gradients, x0=x0, m=m).time_spy()
-
-# # ------------------------------ make table ------------------------------
-data = np.array([
-    [4, 2**10, 0.000865752087948107, 0.001373611609681555, 0.00070530892753868],
-    [8, 2**10, 0.001217196573851513, 0.001376778155618916, 0.00075274881159551],
-    [16, 2**10, 0.001928193470458312, 0.001386631868152194, 0.00076677980936153],
-    [32, 2**10, 0.003334326275731831, 0.001368592610047278, 0.00190438375780167],
-    [4, 2**15, 0.000948097782627204, 0.001498389444391258, 0.00126336941506343],
-    [8, 2**15, 0.001415753512412077, 0.001544760880314796, 0.00142903176754277],
-    [16, 2**15, 0.002266560895225004, 0.001661728610752058, 0.00149819757442852],
-    [32, 2**15, 0.003630589070046370, 0.001728885076980301, 0.00254183436517931]
-])
+#     @classmethod
+#     def gradients(cls, x):
+#         if isinstance(x, np.ndarray):
+#             n = x.__len__()
+#         else:
+#             n = x.get_shape().as_list()[0]
+#         return (4 * x ** 3 - 32 * x + 5) / n
 
 
-data[:, 2:] -= np.array([0.000643440403206678, 0.001328898015130064, 0.0006802482685105137])
+# # m, n = 32, 2 ** 10
+# # x0 = -2.5 * np.ones(shape=(n, )) + np.linspace(0, 1, n) - 0.5
+# #
+# # # ------------------------------ test parallel mode ------------------------------
+# # xk, logs = BFGS(Styblinski.function, x0=x0).solve()
+# # xk, logs = LBFGS(Styblinski.function, Styblinski.gradients, m=m, x0=x0).solve(tol=1e-8)
+# # xk, logs = serial.fast_bfgs(Styblinski.function, Styblinski.gradients, x0, m, tol=1e-8)
+# # print(logs[:, -2:])
+# # xk, logs = fast_bfgs(Styblinski.function, Styblinski.gradients, x0, m, tol=1e-8)
+# # print(logs)
+# # # ------------------------------ test time spy ------------------------------
+# # LBFGS(Styblinski.function, Styblinski.gradients, x0=x0, m=m).time_spy()
+# # FastBFGS(Styblinski.function, Styblinski.gradients, x0=x0, m=m).time_spy()
+
+# # # ------------------------------ make table ------------------------------
+# data = np.array([
+#     [4, 2**10, 0.000865752087948107, 0.001373611609681555, 0.00070530892753868],
+#     [8, 2**10, 0.001217196573851513, 0.001376778155618916, 0.00075274881159551],
+#     [16, 2**10, 0.001928193470458312, 0.001386631868152194, 0.00076677980936153],
+#     [32, 2**10, 0.003334326275731831, 0.001368592610047278, 0.00190438375780167],
+#     [4, 2**15, 0.000948097782627204, 0.001498389444391258, 0.00126336941506343],
+#     [8, 2**15, 0.001415753512412077, 0.001544760880314796, 0.00142903176754277],
+#     [16, 2**15, 0.002266560895225004, 0.001661728610752058, 0.00149819757442852],
+#     [32, 2**15, 0.003630589070046370, 0.001728885076980301, 0.00254183436517931]
+# ])
 
 
-import pandas as pd
+# data[:, 2:] -= np.array([0.000643440403206678, 0.001328898015130064, 0.0006802482685105137])
 
 
-df = pd.DataFrame(data=data, columns=['m', 'n', "L_BFGS", "pk", "lk"])
-print(df)
+# import pandas as pd
 
-#    m        n    L_BFGS        pk        lk
-#
-#  4.0   1024.0  0.000222  0.000045  0.000025
-#  8.0   1024.0  0.000574  0.000048  0.000073
-# 16.0   1024.0  0.001285  0.000058  0.000087
-# 32.0   1024.0  0.002691  0.000028  0.001599
-#
-#  4.0  32768.0  0.000305  0.000169  0.000583
-#  8.0  32768.0  0.000772  0.000216  0.000749
-# 16.0  32768.0  0.001623  0.000333  0.000818
-# 32.0  32768.0  0.002987  0.000400  0.001862
+
+# df = pd.DataFrame(data=data, columns=['m', 'n', "L_BFGS", "pk", "lk"])
+# print(df)
+
+# #    m        n    L_BFGS        pk        lk
+# #
+# #  4.0   1024.0  0.000222  0.000045  0.000025
+# #  8.0   1024.0  0.000574  0.000048  0.000073
+# # 16.0   1024.0  0.001285  0.000058  0.000087
+# # 32.0   1024.0  0.002691  0.000028  0.001599
+# #
+# #  4.0  32768.0  0.000305  0.000169  0.000583
+# #  8.0  32768.0  0.000772  0.000216  0.000749
+# # 16.0  32768.0  0.001623  0.000333  0.000818
+# # 32.0  32768.0  0.002987  0.000400  0.001862
